@@ -1,0 +1,34 @@
+name: Do a random amount of Duolingo lessons
+
+on:
+    workflow_dispatch:
+        inputs:
+            minimum:
+                default: 1
+                description: 'The minimum number of lessons to be completed'
+                required: false
+                type: number
+            maximum:
+                default: 1
+                description: 'The maximum number of lessons to be completed'
+                required: false
+                type: number
+
+jobs:
+    random:
+        runs-on: ubuntu-latest
+        steps:
+            - id: random_number
+              run: echo "RANDOM=$((shuf -i ${{ inputs.minimum }}-${{ inputs.maximum }} -n 1))" >> $GITHUB_ENV
+              shell: bash
+            
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                node-version: 20
+        
+            - run: node index.js
+              env:
+                DUOLINGO_JWT: ${{ secrets.DUOLINGO_JWT }}
+                LESSONS: ${{ env.RANDOM }}
