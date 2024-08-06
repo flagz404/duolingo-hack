@@ -18,17 +18,22 @@ jobs:
     random:
         runs-on: ubuntu-latest
         steps:
-            - id: random_number
-              run: echo "RANDOM=$((shuf -i ${{ inputs.minimum }}-${{ inputs.maximum }} -n 1))" >> $GITHUB_ENV
-              shell: bash
-            
-            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                python-version: '3.10' 
 
+            - run: RANDOM=$(python random.randrange(${{ inputs.minimum }}, ${{ inputs.maximum }})) >> $GITHUB_ENV
+
+    study:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            
             - uses: actions/setup-node@v4
               with:
                 node-version: 20
-        
+            
             - run: node index.js
               env:
                 DUOLINGO_JWT: ${{ secrets.DUOLINGO_JWT }}
-                LESSONS: ${{ env.RANDOM }}
+                LESSONS: ${{ env.RANDOM }}        
