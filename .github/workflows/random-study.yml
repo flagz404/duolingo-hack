@@ -10,7 +10,7 @@ on:
                 type: number
 
 jobs:
-    random:
+    study:
         runs-on: ubuntu-latest
         steps:
             - run: echo "random=$( shuf -i 1-999 -n 1 )" >> $GITHUB_ENV
@@ -21,7 +21,7 @@ jobs:
               with:
                 node-version: 20
 
-            - run: node index.js
+            - run: for run in {1..${{ inputs.times }}}; do node index.js; done
               env:
                 DUOLINGO_JWT: ${{ secrets.DUOLINGO_JWT }}
                 LESSONS: ${{ env.random }}
