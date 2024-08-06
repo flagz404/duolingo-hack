@@ -13,15 +13,13 @@ jobs:
     study:
         runs-on: ubuntu-latest
         steps:
-            - run: echo "random=$( shuf -i 1-999 -n 1 )" >> $GITHUB_ENV
-
             - uses: actions/checkout@v4
 
             - uses: actions/setup-node@v4
               with:
                 node-version: 20
 
-            - run: for run in {1..${{ inputs.times }}}; do node index.js; done
+            - run: for run in {1..${{ inputs.times }}}; do node index.js; echo "random=$( shuf -i 1-999 -n 1 )" >> $GITHUB_ENV; done
               env:
                 DUOLINGO_JWT: ${{ secrets.DUOLINGO_JWT }}
                 LESSONS: ${{ env.random }}
