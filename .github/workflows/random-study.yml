@@ -22,18 +22,4 @@ jobs:
               with:
                 python-version: '3.10' 
 
-            - run: RANDOM=$(python random.randrange(${{ inputs.minimum }}, ${{ inputs.maximum }})) >> $GITHUB_ENV
-
-    study:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            
-            - uses: actions/setup-node@v4
-              with:
-                node-version: 20
-            
-            - run: node index.js
-              env:
-                DUOLINGO_JWT: ${{ secrets.DUOLINGO_JWT }}
-                LESSONS: ${{ env.RANDOM }}        
+            - run: python random.randrange(${{ inputs.minimum }}, ${{ inputs.maximum }})
