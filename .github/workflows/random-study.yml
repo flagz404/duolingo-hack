@@ -18,4 +18,5 @@ jobs:
     random:
         runs-on: ubuntu-latest
         steps:
-            - run: shuf -i ${{ inputs.minimum }}-${{ inputs.maximum }} -n 1
+            # - run: shuf -i ${{ inputs.minimum }}-${{ inputs.maximum }} -n 1
+            - run: echo "PROCEED=$((RANDOM%2))" >> $GITHUB_ENV
