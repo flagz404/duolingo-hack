@@ -22,4 +22,5 @@ jobs:
               with:
                 python-version: '3.10' 
 
-            - run: python random.randrange(${{ inputs.minimum }}, ${{ inputs.maximum }})
+            - run: python
+            - run: random.randrange(${{ inputs.minimum }}, ${{ inputs.maximum }})
