@@ -18,8 +18,16 @@ jobs:
     random:
         runs-on: ubuntu-latest
         steps:
-            # - run: shuf -i ${{ inputs.minimum }}-${{ inputs.maximum }} -n 1
-            # - run: echo "PROCEED=$((RANDOM%2))" >> $GITHUB_ENV
-            - run: echo "RANDOM=$( shuf -i ${{ inputs.minimum }}-${{ inputs.maximum }} -n 1 )" >> $GITHUB_ENV
+            - run: echo "random=$( shuf -i ${{ inputs.minimum }}-${{ inputs.maximum }} -n 1 )" >> $GITHUB_ENV
 
-            - run: echo ${{ env.RANDOM }}
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                node-version: 20
+
+            - run: node index.js
+              env:
+                DUOLINGO_JWT: ${{ secrets.DUOLINGO_JWT }}
+                LESSONS: ${{ env.random }}
+        
