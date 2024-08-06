@@ -21,3 +21,5 @@ jobs:
             # - run: shuf -i ${{ inputs.minimum }}-${{ inputs.maximum }} -n 1
             # - run: echo "PROCEED=$((RANDOM%2))" >> $GITHUB_ENV
             - run: echo "RANDOM=shuf -i ${{ inputs.minimum }}-${{ inputs.maximum }} -n 1" >> $GITHUB_ENV
+
+            - run: echo ${{ env.RANDOM }}
