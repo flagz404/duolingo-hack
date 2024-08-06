@@ -3,14 +3,9 @@ name: Do a random amount of Duolingo lessons
 on:
     workflow_dispatch:
         inputs:
-            minimum:
+            times:
                 default: 1
-                description: 'The minimum number of lessons to be completed'
-                required: false
-                type: number
-            maximum:
-                default: 1
-                description: 'The maximum number of lessons to be completed'
+                description: 'Number of times this script will be run'
                 required: false
                 type: number
 
@@ -18,7 +13,7 @@ jobs:
     random:
         runs-on: ubuntu-latest
         steps:
-            - run: echo "random=$( shuf -i ${{ inputs.minimum }}-${{ inputs.maximum }} -n 1 )" >> $GITHUB_ENV
+            - run: echo "random=$( shuf -i 1-999 -n 1 )" >> $GITHUB_ENV
 
             - uses: actions/checkout@v4
 
