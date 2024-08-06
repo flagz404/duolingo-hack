@@ -1,1 +1,0 @@
-random.randrange(${{ inputs.minimum }}, ${{ inputs.maximum }})
